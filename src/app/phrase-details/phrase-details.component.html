@@ -1,1 +1,12 @@
-<p>phrase-details works!</p>
+<div *ngIf="phrase">
+  <h2>Selected Phrase Details Info</h2>
+
+  <div>ID: {{phrase.id}}</div>
+  <div>Value: {{phrase.value}}</div>
+  <div>language: {{phrase.language}}</div>
+
+  <div>
+    <button type="button" (click)="gotoPhrasesList()">Go to phrases list</button>
+  </div>
+
+</div>
