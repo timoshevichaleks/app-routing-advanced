@@ -1,7 +1,7 @@
 <h2>Phrases List Page</h2>
 
 <ul class="phrases">
-  <li *ngFor="let phrase of phrases" (click)="onSelect(phrase)">
+  <li *ngFor="let phrase of phrases" [class.selected]="isSelected(phrase)" (click)="onSelect(phrase)">
     {{phrase.value}}
   </li>
 </ul>

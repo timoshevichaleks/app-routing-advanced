@@ -32,7 +32,9 @@ export class PhraseDetailsComponent implements OnInit {
   }
 
   gotoPhrasesList() {
-    this.router.navigate(['/phrases']).then();
+    const phraseID = this.phrase ? this.phrase.id : null;
+
+    this.router.navigate(['/phrases', {id: phraseID}]).then();
   }
 
 }

@@ -52,11 +52,17 @@ nav {
     padding: 5px 0;
     max-width: 250px;
     transition: padding .5s;
+    border-radius: 7px;
     &:hover {
       background-color: lightcoral;
       padding-right: 15px;
       padding-left: 15px;
-      border-radius: 7px;
+    }
+    &.selected {
+      background-color: lightskyblue;
+      padding-right: 15px;
+      padding-left: 15px;
+      font-weight: bold;
     }
   }
 }
