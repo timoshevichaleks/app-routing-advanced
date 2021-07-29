@@ -10,8 +10,19 @@ export class AuthService {
 
   constructor() { }
 
-  login(login: string, password: string): any {
-    return login === 'admin' && password === '123' ? this.isLoggedIn = true : false;
+  login(login: string, password: string): Promise<boolean> {
+    const promise = new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          login: 'admin',
+          password: '123'
+        })
+      }, 1000)
+    })
+
+    return promise.then((res: any) => {
+      return login === res.login && password === res.password ? this.isLoggedIn = true : false;
+    })
   }
 
   logout(): void {
