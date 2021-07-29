@@ -1,1 +1,62 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 992px;
+  margin: auto;
+  font-family: Verdana, sans-serif;
+}
+
+button {
+  border: 1px solid darkred;
+  text-decoration: none;
+  transition: .5s;
+  color: tomato;
+  padding: 7px 15px;
+  margin-right: 15px;
+  border-radius: 7px;
+  background-color: transparent;
+  font-size: 1rem;
+}
+
+nav {
+  a {
+    display: inline-block;
+    border: 1px solid darkred;
+    text-decoration: none;
+    transition: .5s;
+    color: tomato;
+    padding: 7px 15px;
+    margin-right: 15px;
+    border-radius: 7px;
+    &.active {
+      background-color: tomato;
+      color: white;
+    }
+  }
+}
+
+.btn-group {
+  margin-top: 20px;
+}
+
+.phrases {
+  list-style: none;
+  padding: 0;
+  li {
+    cursor: pointer;
+    margin: 2px;
+    padding: 5px 0;
+    max-width: 250px;
+    transition: padding .5s;
+    &:hover {
+      background-color: lightcoral;
+      padding-right: 15px;
+      padding-left: 15px;
+      border-radius: 7px;
+    }
+  }
+}
