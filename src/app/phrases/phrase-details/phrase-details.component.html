@@ -1,9 +1,7 @@
 <div>
-
-  <div *ngIf="authService.isLoggedIn; then thenBlock else elseBlock"></div>
-
   <h2>Selected Phrase Details Info</h2>
 
+  <div *ngIf="authService.isLoggedIn; then thenBlock else elseBlock"></div>
 </div>
 
 <ng-template #thenBlock>

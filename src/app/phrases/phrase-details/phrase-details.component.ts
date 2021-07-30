@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Data, Params, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 import { CanComponentDeactivate } from 'src/app/shared/can-deactivate.guard';
 import { Phrase } from '../../shared/phrase.class';
@@ -24,23 +24,12 @@ export class PhraseDetailsComponent implements OnInit, CanComponentDeactivate {
     ) { }
 
   ngOnInit(): void {
-
-    this.activatedRoute.params.subscribe((params: Params) => {
-      const id: number = +params.id;
-
-      if (isNaN(id)) return;
-
-      this.phraseService
-          .getPhrase(id)
-          .then(result => {
-            this.phrase = result;
-            if (this.phrase) {
-              this.editValue = this.phrase.value;
-              this.editLanguage = this.phrase.language;
-            }
-          });
-    });
-  }
+    this.activatedRoute.data.subscribe((data: Data) => {
+      this.phrase = data.phrase;
+      this.editValue = this.phrase.value;
+      this.editLanguage = this.phrase.language;
+    })
+    };
 
   gotoPhrasesList() {
     const phraseID = this.phrase ? this.phrase.id : null;
