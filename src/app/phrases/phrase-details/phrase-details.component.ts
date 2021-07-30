@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/auth.service';
+import { CanComponentDeactivate } from 'src/app/shared/can-deactivate.guard';
 import { Phrase } from '../../shared/phrase.class';
 import { PhraseService } from '../../shared/phrase.service';
 
@@ -8,14 +10,17 @@ import { PhraseService } from '../../shared/phrase.service';
   templateUrl: './phrase-details.component.html',
   styleUrls: ['./phrase-details.component.scss']
 })
-export class PhraseDetailsComponent implements OnInit {
+export class PhraseDetailsComponent implements OnInit, CanComponentDeactivate {
 
   phrase!: Phrase;
+  editValue!: string;
+  editLanguage!: string;
 
   constructor(
     private phraseService: PhraseService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public authService: AuthService
     ) { }
 
   ngOnInit(): void {
@@ -27,7 +32,13 @@ export class PhraseDetailsComponent implements OnInit {
 
       this.phraseService
           .getPhrase(id)
-          .then(result => this.phrase = result);
+          .then(result => {
+            this.phrase = result;
+            if (this.phrase) {
+              this.editValue = this.phrase.value;
+              this.editLanguage = this.phrase.language;
+            }
+          });
     });
   }
 
@@ -35,6 +46,25 @@ export class PhraseDetailsComponent implements OnInit {
     const phraseID = this.phrase ? this.phrase.id : null;
 
     this.router.navigate(['/phrases', {id: phraseID}]).then();
+  }
+
+  save() {
+    this.phrase.value = this.editValue;
+    this.phrase.language = this.editLanguage;
+  }
+
+  isChanged(): boolean {
+    return !(this.phrase.value === this.editValue && this.phrase.language === this.editLanguage);
+  }
+
+  canDeactivate() {
+    if (!this.phrase) {
+      return true;
+    } else if (!this.isChanged()) {
+      return true;
+    }
+
+    return confirm('Вы не сохранили изменения. \nДанные будут потеряны. \nУйти со страницы в любом случае?');
   }
 
 }

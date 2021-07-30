@@ -1,6 +1,32 @@
-<div *ngIf="phrase">
+<div>
+
+  <div *ngIf="authService.isLoggedIn; then thenBlock else elseBlock"></div>
+
   <h2>Selected Phrase Details Info</h2>
 
+</div>
+
+<ng-template #thenBlock>
+  <div>ID: {{phrase.id}}</div>
+  <div>
+    <label>
+    Value:
+    <input type="text" [(ngModel)]="editValue">
+  </label>
+  </div>
+  <div><label>
+    language:
+    <input type="text" [(ngModel)]="editLanguage">
+  </label>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" *ngIf="isChanged()" (click)="save()">Seve</button>
+    <button type="button" (click)="gotoPhrasesList()">Go to phrases list</button>
+  </div>
+</ng-template>
+
+<ng-template #elseBlock>
   <div>ID: {{phrase.id}}</div>
   <div>Value: {{phrase.value}}</div>
   <div>language: {{phrase.language}}</div>
@@ -8,5 +34,4 @@
   <div class="btn-group">
     <button type="button" (click)="gotoPhrasesList()">Go to phrases list</button>
   </div>
-
-</div>
+</ng-template>
